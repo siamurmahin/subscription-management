@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account — SubsTrack</title>
+    <meta name="description" content="Create your free SubsTrack account and start managing your subscriptions." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+</head>
+
+<body>
+    <div class="auth-page">
+        <!-- LEFT PANEL -->
+        <div class="auth-left">
+            <div class="auth-left-bg">
+                <div class="auth-orb-1"></div>
+                <div class="auth-orb-2"></div>
+            </div>
+            <div class="auth-left-inner">
+                <div class="auth-left-header">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">⚡</div>
+                        <span>SubsTrack</span>
+                    </a>
+                </div>
+                <div class="auth-left-content">
+                    <div class="auth-tagline">
+                        <p>Start managing<br /><span class="gradient-text">smarter today.</span></p>
+                    </div>
+                    <div class="auth-perks">
+                        <div class="auth-perk">
+                            <div class="perk-icon">🌱</div>
+                            <div class="perk-text">
+                                <strong>Free to Start</strong>
+                                <span>Get started with Basic — no credit card required.</span>
+                            </div>
+                        </div>
+                        <div class="auth-perk">
+                            <div class="perk-icon">🔒</div>
+                            <div class="perk-text">
+                                <strong>Secure & Private</strong>
+                                <span>Your subscription data is encrypted and private.</span>
+                            </div>
+                        </div>
+                        <div class="auth-perk">
+                            <div class="perk-icon">🎯</div>
+                            <div class="perk-text">
+                                <strong>Custom Alerts</strong>
+                                <span>Choose exactly when to be reminded before renewals.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="auth-right">
+            <div class="auth-form-wrap">
+                <div class="auth-form-header">
+                    <h2>Create your account</h2>
+                    <p>Join thousands managing subscriptions smarter.</p>
+                </div>
+
+                <form class="auth-form" id="registerForm" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="firstName">First Name</label>
+                            <input class="form-input" type="text" id="firstName" placeholder="John" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="lastName">Last Name</label>
+                            <input class="form-input" type="text" id="lastName" placeholder="Doe" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="regEmail">Email Address</label>
+                        <input class="form-input" type="email" id="regEmail" placeholder="you@example.com" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="regPassword">Password</label>
+                        <div class="password-input-wrap">
+                            <input class="form-input" type="password" id="regPassword" placeholder="Min 6 characters"
+                                required />
+                            <span class="password-toggle" id="toggleRegPwd">👁</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Choose your plan</label>
+                        <div class="tier-selector" id="tierSelector">
+                            <label class="tier-option selected" for="tierBasic">
+                                <input type="radio" name="tier" id="tierBasic" value="basic" checked />
+                                <div class="tier-icon">🌱</div>
+                                <div class="tier-name">Basic</div>
+                                <div class="tier-limit">5 subs — Free</div>
+                            </label>
+                            <label class="tier-option" for="tierMedium">
+                                <input type="radio" name="tier" id="tierMedium" value="medium" />
+                                <div class="tier-icon">🚀</div>
+                                <div class="tier-name">Medium</div>
+                                <div class="tier-limit">15 subs — $9/mo</div>
+                            </label>
+                            <label class="tier-option" for="tierLarge">
+                                <input type="radio" name="tier" id="tierLarge" value="large" />
+                                <div class="tier-icon">💎</div>
+                                <div class="tier-name">Large</div>
+                                <div class="tier-limit">Unlimited — $19/mo</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label
+                            style="display:flex;align-items:flex-start;gap:10px;font-size:0.85rem;cursor:pointer;color:var(--text-secondary);">
+                            <input type="checkbox" id="terms"
+                                style="accent-color:var(--brand);width:15px;height:15px;margin-top:2px;flex-shrink:0;"
+                                required />
+                            I agree to the <a href="#" style="color:var(--brand);margin-left:4px;">Terms of Service</a>
+                            and <a href="#" style="color:var(--brand);margin-left:4px;">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary form-submit" id="registerBtn">
+                        Create Account — It's Free
+                    </button>
+                </form>
+
+                <div class="auth-switch" style="margin-top: 24px;">
+                    Already have an account? <a href="login.html">Sign in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

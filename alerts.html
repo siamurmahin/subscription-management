@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alerts — SubsTrack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">⚡</div><span>SubsTrack</span>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">Main</div>
+                <a href="dashboard.html" class="sidebar-link">
+                    <div class="link-icon">📊</div><span>Dashboard</span>
+                </a>
+                <a href="subscriptions.html" class="sidebar-link">
+                    <div class="link-icon">📋</div><span>Subscriptions</span>
+                </a>
+                <a href="alerts.html" class="sidebar-link active">
+                    <div class="link-icon">🔔</div><span>Alerts</span>
+                </a>
+                <a href="analytics.html" class="sidebar-link">
+                    <div class="link-icon">📈</div><span>Analytics</span>
+                </a>
+                <div class="nav-section-label">Account</div>
+                <a href="settings.html" class="sidebar-link">
+                    <div class="link-icon">⚙️</div><span>Settings</span>
+                </a>
+                <button class="sidebar-link" onclick="logout()" style="width:100%;text-align:left;background:none;">
+                    <div class="link-icon">🚪</div><span>Sign Out</span>
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-avatar" id="sidebarAvatar">?</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name" id="sidebarName">Loading...</div>
+                        <div class="sidebar-user-role" id="sidebarTier">Basic Plan</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div class="flex gap-md" style="align-items:center;">
+                    <button class="icon-btn" id="sidebarToggle" onclick="toggleSidebar()">☰</button>
+                    <div class="topbar-title">Alerts & Reminders</div>
+                </div>
+                <div class="topbar-actions">
+                    <a href="settings.html" class="btn btn-outline btn-sm">⚙️ Notification Settings</a>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <!-- Notification preferences -->
+                <div class="card" style="margin-bottom:var(--space-xl);">
+                    <div class="flex-between" style="margin-bottom:var(--space-lg);">
+                        <div>
+                            <h3 style="font-size:0.95rem;margin-bottom:4px;">Your Reminder Schedule</h3>
+                            <p style="font-size:0.82rem;">You'll be notified on these days before renewal.</p>
+                        </div>
+                        <button class="btn btn-outline btn-sm" onclick="openModal('editNotifyModal')">Edit</button>
+                    </div>
+                    <div class="notify-days-picker" id="currentNotifyDays" style="pointer-events:none;"></div>
+                </div>
+
+                <!-- Due today/tomorrow -->
+                <div id="urgentSection" style="margin-bottom:var(--space-xl);">
+                    <h3 style="font-size:1rem;margin-bottom:var(--space-lg);display:flex;align-items:center;gap:8px;">
+                        🔴 Urgent — Due Today or Tomorrow
+                    </h3>
+                    <div id="urgentList"></div>
+                </div>
+
+                <!-- Upcoming 7 days -->
+                <div id="upcomingSection" style="margin-bottom:var(--space-xl);">
+                    <h3 style="font-size:1rem;margin-bottom:var(--space-lg);display:flex;align-items:center;gap:8px;">
+                        🟡 Upcoming — Next 7 Days
+                    </h3>
+                    <div id="upcomingList"></div>
+                </div>
+
+                <!-- Next 30 days -->
+                <div id="monthSection">
+                    <h3 style="font-size:1rem;margin-bottom:var(--space-lg);display:flex;align-items:center;gap:8px;">
+                        📅 Scheduled — Next 30 Days
+                    </h3>
+                    <div id="monthList"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- EDIT NOTIFY MODAL -->
+    <div class="modal-overlay" id="editNotifyModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Edit Notification Preferences</h3>
+                <button class="modal-close" onclick="closeModal('editNotifyModal')">✕</button>
+            </div>
+            <div style="margin-bottom:var(--space-xl);">
+                <p style="font-size:0.9rem;margin-bottom:var(--space-lg);">Choose when to be reminded before each
+                    subscription renews:</p>
+                <div class="notify-days-picker" id="editNotifyPicker">
+                    <label class="notify-day-opt" for="en1"><input type="checkbox" id="en1" value="1" /><span>1 day
+                            before</span></label>
+                    <label class="notify-day-opt" for="en2"><input type="checkbox" id="en2" value="2" /><span>2 days
+                            before</span></label>
+                    <label class="notify-day-opt" for="en3"><input type="checkbox" id="en3" value="3" /><span>3 days
+                            before</span></label>
+                    <label class="notify-day-opt" for="en7"><input type="checkbox" id="en7" value="7" /><span>7 days
+                            before</span></label>
+                    <label class="notify-day-opt" for="en14"><input type="checkbox" id="en14" value="14" /><span>14 days
+                            before</span></label>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="closeModal('editNotifyModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveNotifyPrefs()">Save Preferences</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/alerts.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SubsTrack — Smart Subscription Management</title>
+  <meta name="description" content="Manage all your subscriptions in one place. Get notified before renewals, track spending, and never miss a payment." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav" id="mainNav">
+    <div class="nav-inner container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">⚡</div>
+        <span>SubsTrack</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#how-it-works">How it works</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-ghost">Sign In</a>
+        <a href="register.html" class="btn btn-primary">Get Started Free</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-orb orb-1"></div>
+      <div class="hero-orb orb-2"></div>
+      <div class="hero-orb orb-3"></div>
+      <div class="grid-overlay"></div>
+    </div>
+    <div class="container hero-inner">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Never miss a renewal again
+      </div>
+      <h1 class="hero-title">
+        Your Subscriptions,<br />
+        <span class="gradient-text">Perfectly Managed</span>
+      </h1>
+      <p class="hero-sub">
+        Track every subscription, get smart reminders 1–7 days before renewal, and take control of your recurring expenses — all from one beautiful dashboard.
+      </p>
+      <div class="hero-cta">
+        <a href="register.html" class="btn btn-primary btn-lg">
+          Start for Free
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="login.html" class="btn btn-outline btn-lg">View Demo</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <strong>10k+</strong>
+          <span>Active Users</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <strong>$2M+</strong>
+          <span>Saved Monthly</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <strong>99.9%</strong>
+          <span>Uptime</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating card preview -->
+    <div class="hero-preview container">
+      <div class="preview-card glass-card">
+        <div class="preview-header">
+          <span class="preview-dot red"></span>
+          <span class="preview-dot yellow"></span>
+          <span class="preview-dot green"></span>
+          <span class="preview-title">My Subscriptions</span>
+        </div>
+        <div class="preview-items">
+          <div class="preview-item">
+            <div class="preview-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">N</div>
+            <div class="preview-info">
+              <strong>Netflix</strong>
+              <span>Renews in <em class="warn">2 days</em></span>
+            </div>
+            <div class="preview-price">$15.99</div>
+          </div>
+          <div class="preview-item">
+            <div class="preview-icon" style="background: linear-gradient(135deg, #11998e, #38ef7d);">S</div>
+            <div class="preview-info">
+              <strong>Spotify</strong>
+              <span>Renews in 14 days</span>
+            </div>
+            <div class="preview-price">$9.99</div>
+          </div>
+          <div class="preview-item">
+            <div class="preview-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);">A</div>
+            <div class="preview-info">
+              <strong>Adobe CC</strong>
+              <span>Renews in 28 days</span>
+            </div>
+            <div class="preview-price">$54.99</div>
+          </div>
+        </div>
+        <div class="preview-footer">
+          <span>Monthly Total</span>
+          <strong>$80.97</strong>
+        </div>
+      </div>
+
+      <div class="preview-alert glass-card alert-card">
+        <div class="alert-icon">🔔</div>
+        <div class="alert-text">
+          <strong>Reminder</strong>
+          <span>Netflix renews tomorrow — $15.99</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Features</div>
+        <h2 class="section-title">Everything you need to stay<br /><span class="gradient-text">on top of subscriptions</span></h2>
+        <p class="section-sub">Powerful tools designed to give you complete control over your recurring expenses.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card" data-delay="0">
+          <div class="feature-icon-wrap" style="--clr: #667eea;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          </div>
+          <h3>Smart Dashboard</h3>
+          <p>Get a bird's-eye view of all your subscriptions, upcoming renewals, and monthly spend in real time.</p>
+        </div>
+        <div class="feature-card" data-delay="100">
+          <div class="feature-icon-wrap" style="--clr: #f093fb;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+          </div>
+          <h3>Custom Reminders</h3>
+          <p>Choose when you want to be notified — 1, 2, 3, or 7 days before any renewal. Never be caught off guard.</p>
+        </div>
+        <div class="feature-card" data-delay="200">
+          <div class="feature-icon-wrap" style="--clr: #11998e;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+          </div>
+          <h3>Category Tracking</h3>
+          <p>Organize subscriptions by category — Entertainment, Work, Health, and more. Spot where your money goes.</p>
+        </div>
+        <div class="feature-card" data-delay="300">
+          <div class="feature-icon-wrap" style="--clr: #f5576c;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Admin Control</h3>
+          <p>Full admin panel to manage all users, assign tiers, adjust limits, and monitor the entire platform.</p>
+        </div>
+        <div class="feature-card" data-delay="400">
+          <div class="feature-icon-wrap" style="--clr: #ffeaa7;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          </div>
+          <h3>Spend Analytics</h3>
+          <p>Visualize your spending trends, compare monthly totals, and see annual projections at a glance.</p>
+        </div>
+        <div class="feature-card" data-delay="500">
+          <div class="feature-icon-wrap" style="--clr: #a8edea;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          </div>
+          <h3>Tier Plans</h3>
+          <p>Choose from Basic, Medium, or Large plans. Scale up anytime as your subscriptions grow.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works section" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">How It Works</div>
+        <h2 class="section-title">Up and running in <span class="gradient-text">3 simple steps</span></h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <h3>Create Your Account</h3>
+          <p>Sign up for free and choose your plan. No credit card required to get started.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <h3>Add Your Subscriptions</h3>
+          <p>Add all your recurring services — streaming, tools, memberships. Set renewal dates and costs.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <h3>Get Smart Alerts</h3>
+          <p>Choose when to be notified. We'll remind you before every renewal so you're always prepared.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing section" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Pricing</div>
+        <h2 class="section-title">Simple, transparent <span class="gradient-text">pricing</span></h2>
+        <p class="section-sub">Start free, upgrade when you're ready. No hidden fees, no surprises.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="plan-header">
+            <div class="plan-icon">🌱</div>
+            <h3 class="plan-name">Basic</h3>
+            <div class="plan-price"><span class="price-amount">$0</span><span class="price-period">/mo</span></div>
+            <p class="plan-desc">Perfect for individuals just getting started.</p>
+          </div>
+          <ul class="plan-features">
+            <li><span class="check">✓</span> Up to 5 subscriptions</li>
+            <li><span class="check">✓</span> 1-day & 2-day reminders</li>
+            <li><span class="check">✓</span> Basic dashboard</li>
+            <li><span class="check">✓</span> Email notifications</li>
+            <li class="disabled"><span class="cross">✗</span> Analytics & insights</li>
+            <li class="disabled"><span class="cross">✗</span> Priority support</li>
+          </ul>
+          <a href="register.html" class="btn btn-outline plan-btn">Get Started Free</a>
+        </div>
+
+        <div class="pricing-card popular">
+          <div class="popular-badge">Most Popular</div>
+          <div class="plan-header">
+            <div class="plan-icon">🚀</div>
+            <h3 class="plan-name">Medium</h3>
+            <div class="plan-price"><span class="price-amount">$9</span><span class="price-period">/mo</span></div>
+            <p class="plan-desc">Great for power users with growing subscriptions.</p>
+          </div>
+          <ul class="plan-features">
+            <li><span class="check">✓</span> Up to 15 subscriptions</li>
+            <li><span class="check">✓</span> 1–7 day custom reminders</li>
+            <li><span class="check">✓</span> Advanced dashboard</li>
+            <li><span class="check">✓</span> Analytics & insights</li>
+            <li><span class="check">✓</span> Email + browser notifications</li>
+            <li class="disabled"><span class="cross">✗</span> Priority support</li>
+          </ul>
+          <a href="register.html" class="btn btn-primary plan-btn">Start Free Trial</a>
+        </div>
+
+        <div class="pricing-card">
+          <div class="plan-header">
+            <div class="plan-icon">💎</div>
+            <h3 class="plan-name">Large</h3>
+            <div class="plan-price"><span class="price-amount">$19</span><span class="price-period">/mo</span></div>
+            <p class="plan-desc">For businesses and teams with unlimited needs.</p>
+          </div>
+          <ul class="plan-features">
+            <li><span class="check">✓</span> Unlimited subscriptions</li>
+            <li><span class="check">✓</span> Custom reminder schedule</li>
+            <li><span class="check">✓</span> Full analytics suite</li>
+            <li><span class="check">✓</span> All notification types</li>
+            <li><span class="check">✓</span> Priority support</li>
+            <li><span class="check">✓</span> Team sharing & export</li>
+          </ul>
+          <a href="register.html" class="btn btn-outline plan-btn">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section section">
+    <div class="container">
+      <div class="cta-card glass-card">
+        <div class="cta-orb"></div>
+        <h2>Ready to take control?</h2>
+        <p>Join over 10,000 users who've saved thousands by managing their subscriptions smartly.</p>
+        <a href="register.html" class="btn btn-primary btn-lg">Get Started — It's Free</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">⚡</div>
+          <span>SubsTrack</span>
+        </a>
+        <p>Smart subscription management for everyone.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#how-it-works">How it works</a>
+        </div>
+        <div class="footer-col">
+          <h4>Account</h4>
+          <a href="login.html">Sign In</a>
+          <a href="register.html">Register</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>© 2026 SubsTrack. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/landing.js"></script>
+</body>
+</html>

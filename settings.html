@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings — SubsTrack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">⚡</div><span>SubsTrack</span>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">Main</div>
+                <a href="dashboard.html" class="sidebar-link">
+                    <div class="link-icon">📊</div><span>Dashboard</span>
+                </a>
+                <a href="subscriptions.html" class="sidebar-link">
+                    <div class="link-icon">📋</div><span>Subscriptions</span>
+                </a>
+                <a href="alerts.html" class="sidebar-link">
+                    <div class="link-icon">🔔</div><span>Alerts</span>
+                </a>
+                <a href="analytics.html" class="sidebar-link">
+                    <div class="link-icon">📈</div><span>Analytics</span>
+                </a>
+                <div class="nav-section-label">Account</div>
+                <a href="settings.html" class="sidebar-link active">
+                    <div class="link-icon">⚙️</div><span>Settings</span>
+                </a>
+                <button class="sidebar-link" onclick="logout()" style="width:100%;text-align:left;background:none;">
+                    <div class="link-icon">🚪</div><span>Sign Out</span>
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-avatar" id="sidebarAvatar">?</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name" id="sidebarName">Loading...</div>
+                        <div class="sidebar-user-role" id="sidebarTier">Basic Plan</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div class="flex gap-md" style="align-items:center;">
+                    <button class="icon-btn" id="sidebarToggle" onclick="toggleSidebar()">☰</button>
+                    <div class="topbar-title">Settings</div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <div class="settings-grid">
+                    <!-- Left tabs -->
+                    <div class="settings-tabs">
+                        <button class="settings-tab active" onclick="showSettingsTab('profile',this)">👤
+                            Profile</button>
+                        <button class="settings-tab" onclick="showSettingsTab('notifications',this)">🔔
+                            Notifications</button>
+                        <button class="settings-tab" onclick="showSettingsTab('plan',this)">🏆 Plan & Billing</button>
+                        <button class="settings-tab" onclick="showSettingsTab('security',this)">🔒 Security</button>
+                    </div>
+
+                    <!-- Right panels -->
+                    <div>
+                        <!-- PROFILE -->
+                        <div class="settings-panel active" id="tab-profile">
+                            <div class="settings-section">
+                                <div class="settings-section-title">Profile Information</div>
+                                <div
+                                    style="display:flex;align-items:center;gap:var(--space-xl);margin-bottom:var(--space-xl);">
+                                    <div class="sidebar-avatar" id="profileAvatar"
+                                        style="width:72px;height:72px;font-size:1.4rem;border-radius:50%;background:var(--gradient-brand);display:flex;align-items:center;justify-content:center;font-weight:700;">
+                                        ?</div>
+                                    <div>
+                                        <div id="profileName" style="font-weight:700;font-size:1.1rem;"></div>
+                                        <div id="profileEmail"
+                                            style="color:var(--text-muted);font-size:0.85rem;margin-top:4px;"></div>
+                                        <div id="profileTierBadge" style="margin-top:8px;"></div>
+                                    </div>
+                                </div>
+                                <form id="profileForm"
+                                    style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-lg);">
+                                    <div class="form-group">
+                                        <label class="form-label">First Name</label>
+                                        <input class="form-input" type="text" id="settFirstName" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Last Name</label>
+                                        <input class="form-input" type="text" id="settLastName" />
+                                    </div>
+                                    <div class="form-group" style="grid-column:1/-1;">
+                                        <label class="form-label">Email</label>
+                                        <input class="form-input" type="email" id="settEmail" readonly
+                                            style="opacity:0.6;cursor:not-allowed;" />
+                                    </div>
+                                    <div style="grid-column:1/-1;">
+                                        <button type="submit" class="btn btn-primary">Save Profile</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- NOTIFICATIONS -->
+                        <div class="settings-panel" id="tab-notifications">
+                            <div class="settings-section">
+                                <div class="settings-section-title">Reminder Days</div>
+                                <p style="font-size:0.88rem;margin-bottom:var(--space-xl);">Choose how many days in
+                                    advance you'd like to be reminded before a subscription renews.</p>
+                                <div class="notify-days-picker" id="settingsNotifyDays"
+                                    style="margin-bottom:var(--space-xl);">
+                                    <label class="notify-day-opt" for="snd1"><input type="checkbox" id="snd1"
+                                            value="1" /><span>1 day</span></label>
+                                    <label class="notify-day-opt" for="snd2"><input type="checkbox" id="snd2"
+                                            value="2" /><span>2 days</span></label>
+                                    <label class="notify-day-opt" for="snd3"><input type="checkbox" id="snd3"
+                                            value="3" /><span>3 days</span></label>
+                                    <label class="notify-day-opt" for="snd7"><input type="checkbox" id="snd7"
+                                            value="7" /><span>7 days</span></label>
+                                    <label class="notify-day-opt" for="snd14"><input type="checkbox" id="snd14"
+                                            value="14" /><span>14 days</span></label>
+                                </div>
+                                <button class="btn btn-primary" onclick="saveNotifySettings()">Save
+                                    Notifications</button>
+                            </div>
+                        </div>
+
+                        <!-- PLAN -->
+                        <div class="settings-panel" id="tab-plan">
+                            <div class="settings-section">
+                                <div class="settings-section-title">Current Plan</div>
+                                <div id="currentPlanCard" style="margin-bottom:var(--space-xl);"></div>
+                                <div class="settings-section-title">Upgrade Plan</div>
+                                <div class="tier-upgrade-grid" id="tierUpgradeGrid"></div>
+                            </div>
+                        </div>
+
+                        <!-- SECURITY -->
+                        <div class="settings-panel" id="tab-security">
+                            <div class="settings-section">
+                                <div class="settings-section-title">Change Password</div>
+                                <form id="passwordForm"
+                                    style="max-width:380px;display:flex;flex-direction:column;gap:var(--space-lg);">
+                                    <div class="form-group">
+                                        <label class="form-label">Current Password</label>
+                                        <input class="form-input" type="password" id="currentPwd"
+                                            placeholder="Your current password" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">New Password</label>
+                                        <input class="form-input" type="password" id="newPwd"
+                                            placeholder="Min 6 characters" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Confirm New Password</label>
+                                        <input class="form-input" type="password" id="confirmPwd"
+                                            placeholder="Repeat new password" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" style="width:fit-content;">Update
+                                        Password</button>
+                                </form>
+                            </div>
+                            <div class="settings-section" style="margin-top:var(--space-2xl);">
+                                <div class="settings-section-title" style="color:var(--accent-red);">Danger Zone</div>
+                                <p style="font-size:0.88rem;margin-bottom:var(--space-lg);">Permanently delete your
+                                    account and all subscription data. This cannot be undone.</p>
+                                <button class="btn btn-danger" onclick="deleteAccount()">🗑️ Delete My Account</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+
+</html>

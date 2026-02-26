@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analytics — SubsTrack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">⚡</div><span>SubsTrack</span>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">Main</div>
+                <a href="dashboard.html" class="sidebar-link">
+                    <div class="link-icon">📊</div><span>Dashboard</span>
+                </a>
+                <a href="subscriptions.html" class="sidebar-link">
+                    <div class="link-icon">📋</div><span>Subscriptions</span>
+                </a>
+                <a href="alerts.html" class="sidebar-link">
+                    <div class="link-icon">🔔</div><span>Alerts</span>
+                </a>
+                <a href="analytics.html" class="sidebar-link active">
+                    <div class="link-icon">📈</div><span>Analytics</span>
+                </a>
+                <div class="nav-section-label">Account</div>
+                <a href="settings.html" class="sidebar-link">
+                    <div class="link-icon">⚙️</div><span>Settings</span>
+                </a>
+                <button class="sidebar-link" onclick="logout()" style="width:100%;text-align:left;background:none;">
+                    <div class="link-icon">🚪</div><span>Sign Out</span>
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-avatar" id="sidebarAvatar">?</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name" id="sidebarName">Loading...</div>
+                        <div class="sidebar-user-role" id="sidebarTier">Basic Plan</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div class="flex gap-md" style="align-items:center;">
+                    <button class="icon-btn" id="sidebarToggle" onclick="toggleSidebar()">☰</button>
+                    <div class="topbar-title">Analytics & Insights</div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <!-- Summary stats row -->
+                <div class="stats-grid" id="summaryStats" style="margin-bottom:var(--space-xl);"></div>
+
+                <!-- Charts area -->
+                <div class="analytics-grid" style="margin-bottom:var(--space-xl);">
+                    <!-- Category Pie / Donut -->
+                    <div class="analytics-card">
+                        <h3>Spend by Category</h3>
+                        <div class="donut-wrap" id="donutWrap">
+                            <svg class="donut-svg" width="140" height="140" viewBox="0 0 140 140" id="donutSvg">
+                                <circle cx="70" cy="70" r="55" fill="none" stroke="var(--bg-input)" stroke-width="20" />
+                            </svg>
+                            <div class="donut-legend" id="donutLegend"></div>
+                        </div>
+                    </div>
+
+                    <!-- Monthly projection -->
+                    <div class="analytics-card">
+                        <h3>Monthly Spend Breakdown</h3>
+                        <div id="monthlyBreakdown"></div>
+                    </div>
+                </div>
+
+                <!-- Detailed table -->
+                <div class="analytics-card">
+                    <h3 style="margin-bottom:var(--space-xl);">All Subscriptions — Cost Analysis</h3>
+                    <div class="table-wrap">
+                        <table id="analyticsTable">
+                            <thead>
+                                <tr>
+                                    <th>Service</th>
+                                    <th>Category</th>
+                                    <th>Billing</th>
+                                    <th>Cost</th>
+                                    <th>Monthly Equiv.</th>
+                                    <th>Annual Cost</th>
+                                    <th>% of Spend</th>
+                                </tr>
+                            </thead>
+                            <tbody id="analyticsTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/analytics.js"></script>
+</body>
+
+</html>

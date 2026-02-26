@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard — SubsTrack</title>
+    <meta name="description" content="SubsTrack admin panel — manage users, tiers, and subscriptions." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/admin.css" />
+</head>
+
+<body>
+    <div class="app-layout">
+        <!-- ADMIN SIDEBAR -->
+        <aside class="sidebar admin-sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon" style="background:linear-gradient(135deg,#f093fb,#f5576c);">🛡️</div>
+                    <span>SubsTrack <span
+                            style="color:var(--accent-red);font-size:0.75rem;font-weight:700;">ADMIN</span></span>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">Overview</div>
+                <a href="#" class="sidebar-link active" data-page="overview" onclick="showPage('overview',this)">
+                    <div class="link-icon">📊</div><span>Dashboard</span>
+                </a>
+                <div class="nav-section-label">Management</div>
+                <a href="#" class="sidebar-link" data-page="users" onclick="showPage('users',this)">
+                    <div class="link-icon">👥</div><span>Users</span>
+                    <span class="alert-badge" id="userCount">0</span>
+                </a>
+                <a href="#" class="sidebar-link" data-page="subscriptions" onclick="showPage('subscriptions',this)">
+                    <div class="link-icon">📋</div><span>Subscriptions</span>
+                </a>
+                <a href="#" class="sidebar-link" data-page="alerts" onclick="showPage('alerts',this)">
+                    <div class="link-icon">🔔</div><span>Alerts</span>
+                    <span class="alert-badge" id="adminAlertCount" style="display:none;"></span>
+                </a>
+                <div class="nav-section-label">System</div>
+                <a href="#" class="sidebar-link" data-page="tiers" onclick="showPage('tiers',this)">
+                    <div class="link-icon">🏆</div><span>Tier Plans</span>
+                </a>
+                <a href="dashboard.html" class="sidebar-link" onclick="sessionStorage.setItem('adminViewingUser','1')">
+                    <div class="link-icon">👤</div><span>User View</span>
+                </a>
+                <button class="sidebar-link" onclick="logout()" style="width:100%;text-align:left;background:none;">
+                    <div class="link-icon">🚪</div><span>Sign Out</span>
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-avatar" style="background:linear-gradient(135deg,#f093fb,#f5576c);"
+                        id="adminAvatar">A</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name" id="adminName">Admin</div>
+                        <div class="sidebar-user-role" style="color:var(--accent-red);">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="flex gap-md" style="align-items:center;">
+                    <button class="icon-btn" id="sidebarToggle" onclick="toggleSidebar()">☰</button>
+                    <div class="topbar-title" id="adminPageTitle">Admin Dashboard</div>
+                </div>
+                <div class="topbar-actions">
+                    <span id="adminDateTime" style="font-size:0.8rem;color:var(--text-muted);"></span>
+                </div>
+            </header>
+
+            <!-- PAGE: Overview -->
+            <div id="page-overview" class="page-content admin-page active">
+                <div class="stats-grid" id="adminStats"></div>
+
+                <div class="admin-grid">
+                    <!-- Tier distribution -->
+                    <div class="analytics-card">
+                        <h3 style="margin-bottom:var(--space-xl);">Users by Tier</h3>
+                        <div id="tierDistribution"></div>
+                    </div>
+
+                    <!-- Recent alerts -->
+                    <div class="analytics-card">
+                        <h3 style="margin-bottom:var(--space-xl);">Platform Alerts</h3>
+                        <div id="platformAlerts"></div>
+                    </div>
+                </div>
+
+                <!-- Recent users -->
+                <div class="analytics-card" style="margin-top:var(--space-xl);">
+                    <div class="flex-between" style="margin-bottom:var(--space-xl);">
+                        <h3>Recent Users</h3>
+                        <button class="btn btn-outline btn-sm"
+                            onclick="showPage('users', document.querySelector('[data-page=users]'))">View All →</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Tier</th>
+                                    <th>Subs</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentUsersTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: Users -->
+            <div id="page-users" class="page-content admin-page">
+                <div class="subs-toolbar" style="margin-bottom:var(--space-xl);">
+                    <input class="form-input" type="search" id="userSearch" placeholder="🔍  Search users..."
+                        oninput="filterUsers()" />
+                    <select class="form-select" id="tierFilter" onchange="filterUsers()" style="max-width:160px;">
+                        <option value="">All Tiers</option>
+                        <option value="basic">Basic</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                    </select>
+                    <select class="form-select" id="statusFilter" onchange="filterUsers()" style="max-width:160px;">
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('addUserModal')">+ Add User</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>Tier</th>
+                                <th>Subscriptions</th>
+                                <th>Joined</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PAGE: Subscriptions -->
+            <div id="page-subscriptions" class="page-content admin-page">
+                <div class="subs-toolbar" style="margin-bottom:var(--space-xl);">
+                    <input class="form-input" type="search" id="adminSubSearch"
+                        placeholder="🔍  Search subscriptions..." oninput="filterAdminSubs()" />
+                    <select class="form-select" id="adminSubUser" onchange="filterAdminSubs()" style="max-width:200px;">
+                        <option value="">All Users</option>
+                    </select>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subscription</th>
+                                <th>User</th>
+                                <th>Category</th>
+                                <th>Cost</th>
+                                <th>Billing</th>
+                                <th>Renewal</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminSubsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PAGE: Alerts -->
+            <div id="page-alerts" class="page-content admin-page">
+                <div id="allAlertsContainer"></div>
+            </div>
+
+            <!-- PAGE: Tier Plans -->
+            <div id="page-tiers" class="page-content admin-page">
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-xl);" id="tierCards"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ADD USER MODAL -->
+    <div class="modal-overlay" id="addUserModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add New User</h3>
+                <button class="modal-close" onclick="closeModal('addUserModal')">✕</button>
+            </div>
+            <form id="addUserForm" class="modal-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">First Name *</label>
+                        <input class="form-input" type="text" id="newFirstName" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Last Name *</label>
+                        <input class="form-input" type="text" id="newLastName" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email *</label>
+                    <input class="form-input" type="email" id="newEmail" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password *</label>
+                    <input class="form-input" type="password" id="newPassword" placeholder="Min 6 characters"
+                        required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tier</label>
+                    <select class="form-select" id="newTier">
+                        <option value="basic">Basic (Free)</option>
+                        <option value="medium">Medium ($9/mo)</option>
+                        <option value="large">Large ($19/mo)</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('addUserModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- EDIT USER MODAL -->
+    <div class="modal-overlay" id="editUserModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Edit User</h3>
+                <button class="modal-close" onclick="closeModal('editUserModal')">✕</button>
+            </div>
+            <form id="editUserForm" class="modal-form">
+                <input type="hidden" id="editUserId" />
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">First Name</label>
+                        <input class="form-input" type="text" id="editFirstName" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Last Name</label>
+                        <input class="form-input" type="text" id="editLastName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tier</label>
+                    <select class="form-select" id="editUserTier">
+                        <option value="basic">🌱 Basic (5 subscriptions)</option>
+                        <option value="medium">🚀 Medium (15 subscriptions)</option>
+                        <option value="large">💎 Large (Unlimited)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" id="editUserStatus">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('editUserModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+
+</html>

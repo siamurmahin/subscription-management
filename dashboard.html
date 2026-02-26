@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard — SubsTrack</title>
+    <meta name="description" content="Manage your subscriptions and track upcoming renewals." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+
+<body>
+    <div class="app-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">⚡</div>
+                    <span>SubsTrack</span>
+                </a>
+                <div class="show-on-mobile"
+                    style="margin-top:var(--space-md); padding-top:var(--space-md); border-top:1px solid var(--border);">
+                    <div class="topbar-title" id="mobilePageGreeting">Good morning! 👋</div>
+                    <div style="font-size:0.78rem;color:var(--text-muted);">Here's what's happening today</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">Main</div>
+                <a href="dashboard.html" class="sidebar-link active" id="navDashboard">
+                    <div class="link-icon">📊</div>
+                    <span>Dashboard</span>
+                </a>
+                <a href="subscriptions.html" class="sidebar-link" id="navSubs">
+                    <div class="link-icon">📋</div>
+                    <span>Subscriptions</span>
+                </a>
+                <a href="alerts.html" class="sidebar-link" id="navAlerts">
+                    <div class="link-icon">🔔</div>
+                    <span>Alerts</span>
+                    <span class="alert-badge" id="sidebarAlertCount" style="display:none;"></span>
+                </a>
+                <a href="analytics.html" class="sidebar-link" id="navAnalytics">
+                    <div class="link-icon">📈</div>
+                    <span>Analytics</span>
+                </a>
+                <div class="nav-section-label">Account</div>
+                <a href="settings.html" class="sidebar-link" id="navSettings">
+                    <div class="link-icon">⚙️</div>
+                    <span>Settings</span>
+                </a>
+                <button class="sidebar-link" onclick="logout()" style="width:100%;text-align:left;background:none;">
+                    <div class="link-icon">🚪</div>
+                    <span>Sign Out</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-avatar" id="sidebarAvatar">?</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name" id="sidebarName">Loading...</div>
+                        <div class="sidebar-user-role" id="sidebarTier">Basic Plan</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- TOPBAR -->
+            <header class="topbar">
+                <div class="flex gap-md" style="align-items:center;">
+                    <button class="icon-btn" id="sidebarToggle" onclick="toggleSidebar()"
+                        aria-label="Toggle sidebar">☰</button>
+                    <div class="hide-on-mobile">
+                        <div class="topbar-title" id="pageGreeting">Good morning! 👋</div>
+                        <div style="font-size:0.78rem;color:var(--text-muted);">Here's what's happening today</div>
+                    </div>
+                </div>
+                <div class="topbar-actions">
+                    <button class="icon-btn" id="notifBtn" aria-label="Notifications"
+                        onclick="window.location.href='alerts.html'" style="position:relative;">
+                        🔔
+                        <span class="notif-dot" id="notifDot" style="display:none;"></span>
+                    </button>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('addSubModal')">+ Add
+                        Subscription</button>
+                </div>
+            </header>
+
+            <!-- PAGE CONTENT -->
+            <div class="page-content">
+                <!-- UPGRADE BANNER -->
+                <div class="upgrade-banner" id="upgradeBanner" style="display:none;">
+                    <div class="upgrade-banner-inner">
+                        <span>⚡ You've reached your subscription limit!</span>
+                        <span>Upgrade your plan to add more.</span>
+                    </div>
+                    <a href="settings.html" class="btn btn-primary btn-sm">Upgrade Plan</a>
+                </div>
+
+                <!-- ACTIVE ALERTS -->
+                <div id="alertsSection" style="display:none; margin-bottom:24px;">
+                    <div class="alert-strip" id="alertStrip"></div>
+                </div>
+
+                <!-- STATS -->
+                <div class="stats-grid" id="statsGrid">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div>
+                                <div class="stat-card-label">Total Subscriptions</div>
+                                <div class="stat-card-value" id="statTotal">—</div>
+                            </div>
+                            <div class="stat-card-icon" style="background:rgba(102,126,234,0.12);color:var(--brand);">📋
+                            </div>
+                        </div>
+                        <div class="stat-card-change up" id="statLimit">/ 5 limit</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div>
+                                <div class="stat-card-label">Monthly Spend</div>
+                                <div class="stat-card-value" id="statMonthly">—</div>
+                            </div>
+                            <div class="stat-card-icon"
+                                style="background:rgba(17,153,142,0.12);color:var(--accent-green);">💰</div>
+                        </div>
+                        <div class="stat-card-change" id="statYearly" style="color:var(--text-muted);">Annual est.</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div>
+                                <div class="stat-card-label">Due This Week</div>
+                                <div class="stat-card-value" id="statDueWeek">—</div>
+                            </div>
+                            <div class="stat-card-icon"
+                                style="background:rgba(255,209,102,0.12);color:var(--accent-yellow);">📅</div>
+                        </div>
+                        <div class="stat-card-change warning" id="statDueCost">Upcoming cost</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div>
+                                <div class="stat-card-label">Your Plan</div>
+                                <div class="stat-card-value" id="statTier">—</div>
+                            </div>
+                            <div class="stat-card-icon"
+                                style="background:rgba(240,147,251,0.12);color:var(--accent-pink);">🏆</div>
+                        </div>
+                        <div class="stat-card-change" id="statTierLimit" style="color:var(--text-muted);"></div>
+                    </div>
+                </div>
+
+                <!-- MAIN GRID -->
+                <div class="dashboard-grid">
+                    <!-- Subscriptions List -->
+                    <div class="dash-section">
+                        <div class="dash-section-header">
+                            <h3>My Subscriptions</h3>
+                            <a href="subscriptions.html" class="btn btn-ghost btn-sm">View All →</a>
+                        </div>
+                        <div id="subsList">
+                            <div class="empty-state" id="emptySubsState">
+                                <div class="empty-icon">📭</div>
+                                <h4>No subscriptions yet</h4>
+                                <p>Add your first subscription to start tracking.</p>
+                                <button class="btn btn-primary btn-sm" onclick="openModal('addSubModal')">+ Add
+                                    Subscription</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Renewals -->
+                    <div class="dash-section">
+                        <div class="dash-section-header">
+                            <h3>Upcoming Renewals</h3>
+                            <span class="section-tag" style="font-size:0.72rem;padding:2px 10px;">Next 30 days</span>
+                        </div>
+                        <div id="upcomingList">
+                            <div class="empty-state" style="padding:var(--space-xl);">
+                                <div class="empty-icon">✅</div>
+                                <h4>All good!</h4>
+                                <p>No renewals in the next 30 days.</p>
+                            </div>
+                        </div>
+
+                        <!-- Spend breakdown -->
+                        <div class="spend-breakdown-card" id="spendBreakdown" style="display:none;">
+                            <h4 style="margin-bottom:var(--space-md);">Monthly by Category</h4>
+                            <div id="categoryBreakdown"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ADD SUBSCRIPTION MODAL -->
+    <div class="modal-overlay" id="addSubModal">
+        <div class="modal" style="max-width:520px;">
+            <div class="modal-header">
+                <h3>Add Subscription</h3>
+                <button class="modal-close" onclick="closeModal('addSubModal')">✕</button>
+            </div>
+            <form id="addSubForm" class="modal-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Service Name *</label>
+                        <input class="form-input" type="text" id="subName" placeholder="e.g. Netflix" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select class="form-select" id="subCategory">
+                            <option value="">Select category</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Cost ($) *</label>
+                        <input class="form-input" type="number" id="subCost" placeholder="9.99" min="0" step="0.01"
+                            required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Billing Cycle</label>
+                        <select class="form-select" id="subCycle">
+                            <option value="monthly">Monthly</option>
+                            <option value="yearly">Yearly</option>
+                            <option value="weekly">Weekly</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Next Renewal Date *</label>
+                    <input class="form-input" type="date" id="subRenewal" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Notify me before (days)</label>
+                    <div class="notify-days-picker" id="subNotifyDays">
+                        <label class="notify-day-opt" for="nd1">
+                            <input type="checkbox" id="nd1" value="1" checked />
+                            <span>1 day</span>
+                        </label>
+                        <label class="notify-day-opt" for="nd2">
+                            <input type="checkbox" id="nd2" value="2" checked />
+                            <span>2 days</span>
+                        </label>
+                        <label class="notify-day-opt" for="nd3">
+                            <input type="checkbox" id="nd3" value="3" />
+                            <span>3 days</span>
+                        </label>
+                        <label class="notify-day-opt" for="nd7">
+                            <input type="checkbox" id="nd7" value="7" />
+                            <span>7 days</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Icon Color</label>
+                    <div class="color-picker-row" id="subColorPicker"></div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Notes</label>
+                    <input class="form-input" type="text" id="subNotes" placeholder="Optional notes..." />
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('addSubModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Subscription</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- EDIT SUBSCRIPTION MODAL -->
+    <div class="modal-overlay" id="editSubModal">
+        <div class="modal" style="max-width:520px;">
+            <div class="modal-header">
+                <h3>Edit Subscription</h3>
+                <button class="modal-close" onclick="closeModal('editSubModal')">✕</button>
+            </div>
+            <form id="editSubForm" class="modal-form">
+                <input type="hidden" id="editSubId" />
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Service Name *</label>
+                        <input class="form-input" type="text" id="editSubName" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select class="form-select" id="editSubCategory"></select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Cost ($) *</label>
+                        <input class="form-input" type="number" id="editSubCost" min="0" step="0.01" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Billing Cycle</label>
+                        <select class="form-select" id="editSubCycle">
+                            <option value="monthly">Monthly</option>
+                            <option value="yearly">Yearly</option>
+                            <option value="weekly">Weekly</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Next Renewal Date *</label>
+                    <input class="form-input" type="date" id="editSubRenewal" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Notes</label>
+                    <input class="form-input" type="text" id="editSubNotes" />
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('editSubModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>

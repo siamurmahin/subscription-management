@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In — SubsTrack</title>
+    <meta name="description" content="Sign in to your SubsTrack account to manage your subscriptions." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+</head>
+
+<body>
+    <div class="auth-page">
+        <!-- LEFT PANEL -->
+        <div class="auth-left">
+            <div class="auth-left-bg">
+                <div class="auth-orb-1"></div>
+                <div class="auth-orb-2"></div>
+            </div>
+            <div class="auth-left-inner">
+                <div class="auth-left-header">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">⚡</div>
+                        <span>SubsTrack</span>
+                    </a>
+                </div>
+                <div class="auth-left-content">
+                    <div class="auth-tagline">
+                        <p>Welcome back to<br /><span class="gradient-text">your command center.</span></p>
+                    </div>
+                    <div class="auth-perks">
+                        <div class="auth-perk">
+                            <div class="perk-icon">🔔</div>
+                            <div class="perk-text">
+                                <strong>Smart Reminders</strong>
+                                <span>Get notified 1–7 days before your subscriptions renew.</span>
+                            </div>
+                        </div>
+                        <div class="auth-perk">
+                            <div class="perk-icon">📊</div>
+                            <div class="perk-text">
+                                <strong>Spend Insights</strong>
+                                <span>Know exactly where your money is going every month.</span>
+                            </div>
+                        </div>
+                        <div class="auth-perk">
+                            <div class="perk-icon">⚡</div>
+                            <div class="perk-text">
+                                <strong>Instant Setup</strong>
+                                <span>Add all your subscriptions in under 2 minutes.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="auth-right">
+            <div class="auth-form-wrap">
+                <div class="auth-form-header">
+                    <h2>Sign in to SubsTrack</h2>
+                    <p>Enter your credentials to access your dashboard.</p>
+                </div>
+
+                <!-- Demo tips -->
+                <div class="demo-tips"
+                    style="background: rgba(102,126,234,0.08); border: 1px solid rgba(102,126,234,0.2); border-radius: 12px; padding: 14px 16px; margin-bottom: 24px; font-size: 0.82rem;">
+                    <strong style="color: var(--brand); display: block; margin-bottom: 6px;">🎯 Demo
+                        Credentials</strong>
+                    <div style="color: var(--text-secondary);">
+                        <div><strong>Admin:</strong> admin@substrack.com / admin123</div>
+                        <div><strong>User:</strong> user@example.com / user123</div>
+                    </div>
+                </div>
+
+                <form class="auth-form" id="loginForm" novalidate>
+                    <div class="form-group">
+                        <label class="form-label" for="loginEmail">Email Address</label>
+                        <input class="form-input" type="email" id="loginEmail" placeholder="you@example.com" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="loginPassword">Password</label>
+                        <div class="password-input-wrap">
+                            <input class="form-input" type="password" id="loginPassword"
+                                placeholder="Enter your password" required />
+                            <span class="password-toggle" id="toggleLoginPwd">👁</span>
+                        </div>
+                    </div>
+
+                    <div class="flex-between">
+                        <label style="display:flex;align-items:center;gap:8px;font-size:0.85rem;cursor:pointer;">
+                            <input type="checkbox" id="rememberMe"
+                                style="accent-color:var(--brand);width:15px;height:15px;" />
+                            Remember me
+                        </label>
+                        <a href="#" style="font-size:0.85rem;color:var(--brand);">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary form-submit" id="loginBtn">
+                        Sign In
+                    </button>
+
+                    <div class="auth-divider">or continue with</div>
+
+                    <button type="button" class="btn btn-outline form-submit" onclick="demoLogin('basic')"
+                        style="font-size:0.85rem;">
+                        🌱 Demo: Basic User (5-sub limit)
+                    </button>
+                    <button type="button" class="btn btn-outline form-submit" onclick="demoLogin('user')"
+                        style="font-size:0.85rem;">
+                        🚀 Demo: Medium User (15-sub limit)
+                    </button>
+                    <button type="button" class="btn btn-outline form-submit" onclick="demoLogin('admin')"
+                        style="font-size:0.85rem;">
+                        🛡️ Demo: Admin Panel
+                    </button>
+                </form>
+
+                <div class="auth-switch" style="margin-top: 24px;">
+                    Don't have an account? <a href="register.html">Create one free</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>
